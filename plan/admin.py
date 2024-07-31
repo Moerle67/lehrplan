@@ -9,7 +9,7 @@ admin.site.register(Profession)
 @admin.register(Lernfeld)
 class LernffeldAdmin(admin.ModelAdmin):
     list_display = ['nummer', 'prof_abb', 'designation', 'content', 'time']
-    list_filter = ['organisation', 'massnahmeart', 'abrechnungsart']
+    list_filter = ['profession']
     @admin.display()
     def prof_abb(self, obj):
         return obj.profession.abbreviation
