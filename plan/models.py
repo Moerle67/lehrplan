@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -37,4 +38,32 @@ class Lernfeld(models.Model):
 
     #def get_absolute_url(self):
     #    return reverse("Lernfeld_detail", kwargs={"pk": self.pk})
+
+class Thema(models.Model):
+    name = models.CharField(("Thema"), max_length=50)
+    description = models.TextField(("Beschreibung"))
+    
+
+    def __str__(self):
+        return self.name
+
+#    def get_absolute_url(self):
+#        return reverse("Thema_detail", kwargs={"pk": self.pk})
+
+class Lerneinheit(models.Model):
+    name = models.CharField(("Bezeichnung"), max_length=50)
+    description = models.TextField(("Beschreibung"))
+    author = models.ForeignKey(User, verbose_name=("Autor"), on_delete=models.SET_NULL, null=True)
+    lernfeld = models.ManyToManyField(Lernfeld, verbose_name=("Lernfelder"))
+    time = models.IntegerField(("Unterichtseinheiten"), default=5)
+
+    class Meta:
+        verbose_name = ("Lerneinheit")
+        verbose_name_plural = ("Lerneinheiten")
+
+    def __str__(self):
+        return f"{self.name}/{self.author} ({self.time}h)"
+
+    #def get_absolute_url(self):
+    #    return reverse("Lerneinheit_detail", kwargs={"pk": self.pk})
 
