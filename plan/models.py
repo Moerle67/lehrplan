@@ -52,11 +52,12 @@ class Thema(models.Model):
 
 class Lerneinheit(models.Model):
     name = models.CharField(("Bezeichnung"), max_length=50)
+    field = models.ForeignKey(Thema, verbose_name=("Thema"), on_delete=models.CASCADE)
     description = models.TextField(("Beschreibung"))
-    author = models.ForeignKey(User, verbose_name=("Autor"), on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User, verbose_name=("Autor"), on_delete=models.SET_NULL, null=True, related_name="author")
     lernfeld = models.ManyToManyField(Lernfeld, verbose_name=("Lernfelder"))
     time = models.IntegerField(("Unterichtseinheiten"), default=5)
-
+    possible = models.ManyToManyField(User, verbose_name=("mögliche Ausbilder"), related_name="possib")
     class Meta:
         verbose_name = ("Lerneinheit")
         verbose_name_plural = ("Lerneinheiten")

@@ -23,4 +23,4 @@ class LernfeldAdmin(admin.ModelAdmin):
 
 @admin.register(Lerneinheit)
 class LerneinheitAdmin(admin.ModelAdmin):
-        filter_horizontal = ['lernfeld']
+        filter_horizontal = ['lernfeld', 'possible']
