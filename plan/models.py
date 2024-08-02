@@ -57,6 +57,7 @@ class Lerneinheit(models.Model):
     author = models.ForeignKey(User, verbose_name=("Autor"), on_delete=models.SET_NULL, null=True, related_name="author")
     lernfeld = models.ManyToManyField(Lernfeld, verbose_name=("Lernfelder"))
     time = models.IntegerField(("Unterichtseinheiten"), default=5)
+    position = models.IntegerField(("Reihenfolge"), default=0)
     possible = models.ManyToManyField(User, verbose_name=("mögliche Ausbilder"), related_name="possib")
     class Meta:
         verbose_name = ("Lerneinheit")
