@@ -51,6 +51,11 @@
   function handleDragLeave(e) {
     this.classList.remove('over');
   }
+  function handleDrop(e) {
+    e.preventDefault();
+    const data = event.dataTransfer.getData ("Text");
+    event.target.appendChild ( document.getElementById (data) );
+  }
 
   let items = document.querySelectorAll('.card');
   items.forEach(function(item) {
