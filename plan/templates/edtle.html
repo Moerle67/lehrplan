@@ -18,7 +18,7 @@
 
   {% for einheit  in einheiten %}
   <div class="card test" draggable="true">
-      <div class="card-body test" title="{{einheit.description}}">
+      <div class="card-body bg-light drag" title="{{einheit.description}}">
         {{einheit}}
       </div>
     </div>
@@ -29,6 +29,10 @@
 
   function handleDragStart(e) {
     this.style.opacity = '0.4';
+    dragSrcEl = this;
+
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
   }
 
   function handleDragEnd(e) {
@@ -56,7 +60,16 @@
     const data = event.dataTransfer.getData ("Text");
     event.target.appendChild ( document.getElementById (data) );
   }
+  function handleDrop(e) {
+    e.stopPropagation();
 
+    if (dragSrcEl !== this) {
+      dragSrcEl.innerHTML = this.innerHTML;
+      this.innerHTML = e.dataTransfer.getData('text/html');
+  }
+
+  return false;
+}
   let items = document.querySelectorAll('.card');
   items.forEach(function(item) {
     item.addEventListener('dragstart', handleDragStart);
