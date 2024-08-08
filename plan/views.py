@@ -16,7 +16,6 @@ def edtLerneinheit(request):
         # check whether it's valid:
         if form.is_valid():
             thema = form.cleaned_data["thema"]
-            print(thema.id)
             # return HttpResponseRedirect("/thanks/")
             einheiten = Lerneinheit.objects.filter(field=thema).order_by("position")
     else:

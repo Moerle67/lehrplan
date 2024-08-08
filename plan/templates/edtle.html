@@ -15,51 +15,52 @@
     {{ form|crispy }}
     <button type="submit" class="btn btn-success">Auswählen</button>
 </form>
-<ul>
-    {% for einheit  in einheiten %}
-    <div class="card" draggable="true">
-        <div class="card-body" title="{{einheit.description}}">
-          {{einheit}}
-        </div>
+
+  {% for einheit  in einheiten %}
+  <div class="card test" draggable="true">
+      <div class="card-body test" title="{{einheit.description}}">
+        {{einheit}}
       </div>
-    {% endfor %}
-</ul> 
+    </div>
+  {% endfor %}
+
 <script>
-document.addEventListener('DOMContentLoaded', (event) => {
+  document.addEventListener('DOMContentLoaded', (event) => {
 
-function handleDragStart(e) {
-  this.style.opacity = '0.4';
-}
+  function handleDragStart(e) {
+    this.style.opacity = '0.4';
+  }
 
-function handleDragEnd(e) {
-  this.style.opacity = '1';
+  function handleDragEnd(e) {
+    this.style.opacity = '1';
 
-  items.forEach(function (item) {
-    item.classList.remove('over');
+    items.forEach(function (item) {
+      item.classList.remove('over');
+    });
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    return false;
+  }
+
+  function handleDragEnter(e) {
+    this.classList.add('over');
+  }
+
+  function handleDragLeave(e) {
+    this.classList.remove('over');
+  }
+
+  let items = document.querySelectorAll('.card');
+  items.forEach(function(item) {
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragover', handleDragOver);
+    item.addEventListener('dragenter', handleDragEnter);
+    item.addEventListener('dragleave', handleDragLeave);
+    item.addEventListener('dragend', handleDragEnd);
+    item.addEventListener('drop', handleDrop);
   });
-}
-
-function handleDragOver(e) {
-  e.preventDefault();
-  return false;
-}
-
-function handleDragEnter(e) {
-  this.classList.add('over');
-}
-
-function handleDragLeave(e) {
-  this.classList.remove('over');
-}
-
-let items = document.querySelectorAll('.card');
-items.forEach(function(item) {
-  item.addEventListener('dragstart', handleDragStart);
-  item.addEventListener('dragover', handleDragOver);
-  item.addEventListener('dragenter', handleDragEnter);
-  item.addEventListener('dragleave', handleDragLeave);
-  item.addEventListener('dragend', handleDragEnd);
-  item.addEventListener('drop', handleDrop);
 });
-});</script>  
+</script>  
 {% endblock content %}
