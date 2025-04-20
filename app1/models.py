@@ -43,7 +43,7 @@ class LPDetail(models.Model):
     situation = models.TextField(("Lernsituation"))
     result = models.CharField(("Handlungsergebnis"), max_length=50)
     competence = models.TextField("überfachliche Kompetenzen")
-    notes = models.CharField(("Hinweise"), max_length=50)
+    notes = models.CharField(("Hinweise"), max_length=50, blank=True, null=True)
     time = models.IntegerField(("Zeit"))
 
     class Meta:
